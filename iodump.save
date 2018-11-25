@@ -1,0 +1,48 @@
+from subprocess import Popen,PIPE
+import time
+import re
+
+#Lets start with setting with the log file.
+#let set /proc/sys/vm/block_dump to 1
+
+
+def sleeper():
+	while True:
+		num=input("Enter the sleep time: ")
+		try:
+			sleeper_time=int(num)
+		except ValueError:
+			print("Enter an integer number")
+
+		time.sleep(sleeper_num)
+
+	
+with open("/proc/sys/vm/block_dump", 'w') as it:
+        it.write("1")
+
+d={}
+with open("/var/log/kernel.log") as it:
+	for i in it:
+		match=re.findall(r'kernel:\s+\S+\s+\S+\s+(\S+):\s+(\S+)\s+\S+\s+\S+\s+\S+\s+(\S+)', string)
+		proc,flag,drive=match[0]
+		
+		if d[0] == 0:
+			d={proc : {flag : 0, 'disk' : [drive]}}
+		
+		if flag in d[proc]:
+			d[proc][flag]+=1
+		else:
+			d[proc][flag]=1
+
+		if drive in d[proc][disk]:
+			d[proc][disk].append(drive)
+		else:
+			pass
+
+##print
+
+flags=["WRITE", "READ"]
+
+for i in flags:
+	if i in d[proc]:
+		
