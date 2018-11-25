@@ -41,8 +41,18 @@ with open("/var/log/kernel.log") as it:
 
 ##print
 
-flags=["WRITE", "READ"]
+print(f"\tProcess\t\tWRITES\t\tREADS\t\tDRIVE\t")
 
-for i in flags:
-	if i in d[proc]:
+for key,values in d.items():
+#	print(key)
+	for u,v in values.items():
+		if u == "WRITE":
+			out_write=d[key][u]
+		elsif u == "READ":
+			out_read=d[key][u]
+		elsif u == "disk":
+			out_list=d[key][u]
+		else:
+			pass
 		
+	print(f"\t{key}\t\t{out_write}\t\t{out_read}\t\t{out_list}")
